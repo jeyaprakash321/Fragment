@@ -7,12 +7,13 @@
     android:background="@drawable/ic_launcher_background"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/fragmentContainer"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.fragmenttest.SampleFragment"
-        android:layout_margin="10dp"
-        />
+        android:layout_margin="20dp"
+        android:id="@+id/frameContainer"
+        >
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
