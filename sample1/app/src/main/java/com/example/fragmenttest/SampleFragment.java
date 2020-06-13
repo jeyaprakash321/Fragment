@@ -60,7 +60,7 @@ public class SampleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(message,"Fragment : onPause");
+        Log.d(message,"Fragment : onResume");
     }
 
 

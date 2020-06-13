@@ -6,18 +6,27 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
     private static String message = "tag-1";
+    Button btnAddFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(message,"Activity : onCreate");
-        addFragment();
-    }
+        btnAddFragment = (Button) findViewById(R.id.btnAddFragment);
+        btnAddFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFragment();
+            }
+        });
+     }
 
     private void addFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -26,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         frgTransaction.add(R.id.frameContainer,sampleFragment);
         frgTransaction.commit();
     }
+
+
+
 
     @Override
     protected void onStart() {
@@ -42,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(message,"Activity : onPause");
+        Log.d(message,"Activity : onResume");
     }
 
     @Override
