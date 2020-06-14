@@ -8,12 +8,70 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAddFragment"
+        android:weightSum="9"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAddFragment"
+            android:layout_weight="3"
+            android:text="Add"></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnPopFragment"
+            android:layout_weight="3"
+            android:text="Pop"></Button>
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRemoveFragment"
+        android:layout_weight="3"
+        android:text="Remove"></Button>
 
-        android:text="Add Fragment"></Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="9"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnReplace"
+            android:layout_weight="3"
+            android:text="Replace"></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnInclusive"
+            android:layout_weight="3"
+            android:text="Inclusive"></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnExclusive"
+            android:layout_weight="3"
+            android:text="Exculsive"></Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="9">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnString"
+            android:layout_weight="9"
+            android:text="String"></Button>
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"

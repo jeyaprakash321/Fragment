@@ -12,13 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static String message = "tag-1";
     private static String backStackEntru = "backstack";
     Button btnAddFragment;
     FragmentManager fragmentManager;
     FragmentTransaction frgTransaction;
+
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,13 @@ public class MainActivity extends AppCompatActivity {
         btnAddFragment = (Button) findViewById(R.id.btnAddFragment);
         final TextView txtFragmentCount = (TextView) findViewById(R.id.textviewCount);
         fragmentManager = getSupportFragmentManager();
-        btnAddFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addFragment();
-            }
-        });
+        btnAddFragment.setOnClickListener(this);
+        findViewById(R.id.btnPopFragment).setOnClickListener(this);
+        findViewById(R.id.btnRemoveFragment).setOnClickListener(this);
+        findViewById(R.id.btnReplace).setOnClickListener(this);
+        findViewById(R.id.btnExclusive).setOnClickListener(this);
+        findViewById(R.id.btnInclusive).setOnClickListener(this);
+        findViewById(R.id.btnString).setOnClickListener(this);
 
         txtFragmentCount.setText(" current back stack count is "+fragmentManager.getBackStackEntryCount());
 
@@ -52,6 +55,36 @@ public class MainActivity extends AppCompatActivity {
         });
      }
 
+    public void onClick(View v){
+
+        switch (v.getId()){
+            case R.id.btnAddFragment :
+                addFragment();
+                break;
+            case R.id.btnPopFragment :
+                popFragment();
+                break;
+            case R.id.btnRemoveFragment :
+                removeFragment();
+                break;
+            case R.id.btnReplace :
+                replaceFragment();
+                break;
+            case R.id.btnInclusive :
+                removeInculsiveFramgment();
+                break;
+            case R.id.btnExclusive :
+                removeExculsiveFramgment();
+                break;
+            case R.id.btnString :
+                removeStringFramgment();
+                break;
+
+
+
+        }
+    }
+
     private void addFragment(){
          /*  Fragment fragment;
 
@@ -69,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
          */
 
-        Fragment fragment = fragmentManager.findFragmentById(R.id.frameContainer);
+        fragment = fragmentManager.findFragmentById(R.id.frameContainer);
 
         if(fragment instanceof SampleFragment){
             fragment = new firstFragment();
@@ -84,17 +117,59 @@ public class MainActivity extends AppCompatActivity {
         }
 
         frgTransaction = fragmentManager.beginTransaction();
-        frgTransaction.replace(R.id.frameContainer,fragment);
-        frgTransaction.addToBackStack("Replace "+fragment.toString());
+        frgTransaction.add(R.id.frameContainer,fragment);
+        frgTransaction.addToBackStack("Add "+fragment.toString());
         frgTransaction.commit();
 
 
     }
 
+    private void removeFragment(){
+
+
+        if(fragment != null){
+            frgTransaction = fragmentManager.beginTransaction();
+            frgTransaction.remove(fragment);
+            frgTransaction.addToBackStack("Remove "+fragment.toString());
+            frgTransaction.commit();
+        }
+    }
+
+    private void popFragment(){
+
+        fragmentManager.popBackStack();
+    }
+
+    private void replaceFragment(){
+        if(fragment != null){
+            frgTransaction = fragmentManager.beginTransaction();
+            frgTransaction.replace(R.id.frameContainer,fragment);
+            frgTransaction.addToBackStack("Replace "+fragment.toString());
+            frgTransaction.commit();
+        }
+    }
+
+    private void removeExculsiveFramgment(){
+
+        fragmentManager.popBackStack(1,0);
+    }
+
+    private void removeStringFramgment(){
+
+       fragmentManager.popBackStack("Add SampleFragment",FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    private void removeInculsiveFramgment(){
+        fragmentManager.popBackStack(1,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
     @Override
     public void onBackPressed() {
 
-        Fragment fragment = fragmentManager.findFragmentById(R.id.frameContainer);
+        super.onBackPressed();
+
+
+        /*fragment = fragmentManager.findFragmentById(R.id.frameContainer);
 
         if(fragment != null){
             frgTransaction = fragmentManager.beginTransaction();
@@ -103,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
             frgTransaction.commit();
         }else{
             super.onBackPressed();
-        }
+        }*/
     }
 
     @Override
