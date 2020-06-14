@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static String message = "tag-1";
+    private static String backStackEntru = "backstack";
     Button btnAddFragment;
     FragmentManager fragmentManager;
     FragmentTransaction frgTransaction;
@@ -39,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onBackStackChanged() {
                 txtFragmentCount.setText(" current back stack count is "+fragmentManager.getBackStackEntryCount());
+                StringBuilder backStackEntryMsg = new StringBuilder("current status of back stack entry is "+fragmentManager.getBackStackEntryCount());
+                for(int index=(fragmentManager.getBackStackEntryCount()-1);index>=0;index--){
+                    FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(index);
+                    backStackEntryMsg.append(entry.getName()+"\n");
+                }
+
+                Log.d(backStackEntru,backStackEntryMsg.toString());
             }
         });
      }
@@ -75,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         frgTransaction = fragmentManager.beginTransaction();
-        frgTransaction.add(R.id.frameContainer,fragment);
+        frgTransaction.replace(R.id.frameContainer,fragment);
+        frgTransaction.addToBackStack("Replace "+fragment.toString());
         frgTransaction.commit();
 
 
@@ -83,11 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         Fragment fragment = fragmentManager.findFragmentById(R.id.frameContainer);
 
         if(fragment != null){
             frgTransaction = fragmentManager.beginTransaction();
             frgTransaction.remove(fragment);
+            frgTransaction.addToBackStack("Remove "+fragment.toString());
             frgTransaction.commit();
         }else{
             super.onBackPressed();
