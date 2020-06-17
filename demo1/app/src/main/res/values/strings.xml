@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">DemoFragment1</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="arrStrcountries">
+        <item>India</item>
+        <item>USA</item>
+        <item>SriLanka</item>
+        <item>France</item>
+        <item>Russia</item>
+        <item>China</item>
+        <item>Egypt</item>
+        <item>Chile</item>
+        <item>Mongolia</item>
+    </string-array>
+    <string name="India">
+        Ita a India
+    </string>
+    <string name="USA">
+        Ita a USA
+    </string>
+    <string name="SriLanka">
+        Ita a SriLanka
+    </string>
+    <string name="France">
+        Ita a France
+    </string>
+    <string name="Russia">
+        Ita a Russia
+    </string>
+    <string name="China">
+        Ita a China
+    </string>
+    <string name="Egypt">
+        Ita a Egypt
+    </string>
+    <string name="Chile">
+        Ita a Chile
+    </string>
+    <string name="Mongolia">
+        Ita a Mongolia
+    </string>
+</resources>
