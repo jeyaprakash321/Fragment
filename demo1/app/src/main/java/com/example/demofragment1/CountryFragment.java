@@ -25,7 +25,7 @@ public class CountryFragment extends Fragment {
     Context context;
     String[] countries;
 
-    CallBackInterface callBackInterface;
+    FragmentActionListener fragmentActionListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,19 +48,21 @@ public class CountryFragment extends Fragment {
         listViewCountries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               callBackInterface.callBackMethod();
+                if(fragmentActionListener != null) {
+                    fragmentActionListener.onSelectedCountry(countries[position]);
+                }
             }
         });
 
     }
 
-    public void setCallBackInterface(CallBackInterface callBackInterface) {
-        this.callBackInterface = callBackInterface;
+    public void setFragmentActionListener(FragmentActionListener fragmentActionListener) {
+        this.fragmentActionListener = fragmentActionListener;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("slec conut");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Countries List");
     }
 }

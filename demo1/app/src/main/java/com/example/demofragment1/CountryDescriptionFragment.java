@@ -3,6 +3,7 @@ package com.example.demofragment1;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class CountryDescriptionFragment extends Fragment {
 
     TextView textDescription;
     String countryDescription;
+    String countryName;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class CountryDescriptionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(countryName);
         textDescription.setText(countryDescription);
     }
 
@@ -47,16 +50,21 @@ public class CountryDescriptionFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        countryDescription = getStringId("India");
+        Bundle bundle = getArguments();
+        countryName = bundle.getString(FragmentActionListener.KEY_SELECTED_COUNTRY,"India");
+        countryDescription = getStringId(countryName);
     }
 
     private String getStringId(String countryname){
+
         if(countryname.equals("India")){
-            return "Its is a India";
+            return getString(R.string.India);
         }else if(countryname.equals("USA")){
             return "Its is a USA";
         }else{
             return "India hai";
         }
     }
+
+
 }

@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements CallBackInterface {
+public class MainActivity extends AppCompatActivity implements FragmentActionListener {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -23,16 +23,20 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     private void addCountriesFragment(){
         fragmentTransaction = fragmentManager.beginTransaction();
         CountryFragment countryListFragment = new CountryFragment();
-        countryListFragment.setCallBackInterface(this);
+        countryListFragment.setFragmentActionListener(this);
 
         fragmentTransaction.add(R.id.fragmentContainer,countryListFragment);
         fragmentTransaction.commit();
 
     }
 
-    private void addContriesDescriptionFragment(){
+    private void addContriesDescriptionFragment(String countryname){
         fragmentTransaction = fragmentManager.beginTransaction();
         CountryDescriptionFragment countryDescriptionFragment = new CountryDescriptionFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FragmentActionListener.KEY_SELECTED_COUNTRY,countryname);
+        countryDescriptionFragment.setArguments(bundle);
 
         fragmentTransaction.replace(R.id.fragmentContainer,countryDescriptionFragment);
         fragmentTransaction.addToBackStack(null);
@@ -40,8 +44,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     @Override
-    public void callBackMethod() {
-        //Toast.makeText(this,"Trigger other fragment",Toast.LENGTH_SHORT).show();
-        addContriesDescriptionFragment();
+    public void onSelectedCountry(String countryname) {
+        addContriesDescriptionFragment(countryname);
     }
 }
