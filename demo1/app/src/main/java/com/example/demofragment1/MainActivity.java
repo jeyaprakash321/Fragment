@@ -1,16 +1,20 @@
 package com.example.demofragment1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements FragmentActionListener {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    String message = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,5 +57,15 @@ public class MainActivity extends AppCompatActivity implements FragmentActionLis
                 break;
         }
 
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            Log.d(message,"Its Landscape mode");
+        }else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
+            Log.d(message,"Its Portrait mode");
+        }
     }
 }
