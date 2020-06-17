@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity implements FragmentActionLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
-        addCountriesFragment();
+        if(savedInstanceState == null) {
+            addCountriesFragment();
+        }
     }
 
     private void addCountriesFragment(){
